@@ -1,4 +1,6 @@
-package com.thojoeis.workout.timer;
+package com.thojoeis.workout.timer.controllers;
+
+import com.thojoeis.workout.timer.AtomicTimerCount;
 
 import java.util.TimerTask;
 

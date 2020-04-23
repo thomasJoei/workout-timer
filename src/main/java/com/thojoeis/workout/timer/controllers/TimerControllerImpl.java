@@ -1,23 +1,26 @@
-package com.thojoeis.workout.timer;
+package com.thojoeis.workout.timer.controllers;
 
+import com.thojoeis.workout.timer.AtomicTimerCount;
+import com.thojoeis.workout.timer.models.IntervalInfo;
+import com.thojoeis.workout.timer.models.WorkoutSession;
 import com.thojoeis.workout.timer.ui.TimerUI;
 
 import java.util.*;
 
-public class TimerController implements Observer {
+public class TimerControllerImpl implements Observer, TimerController {
 
     private Timer timer;
     private TimerUI ui;
     private WorkoutSession workoutSession;
     private AtomicTimerCount centralizedTimer;
 
-    TimerController(TimerUI timerUI) {
+    public TimerControllerImpl(TimerUI timerUI) {
         this.ui = timerUI;
         this.centralizedTimer = new AtomicTimerCount();
         centralizedTimer.addObserver(this);
     }
 
-    TimerController(TimerUI timerUI, WorkoutSession workoutSession) {
+    public TimerControllerImpl(TimerUI timerUI, WorkoutSession workoutSession) {
         this.ui = timerUI;
         this.workoutSession = workoutSession;
         this.centralizedTimer = new AtomicTimerCount();
@@ -26,11 +29,24 @@ public class TimerController implements Observer {
 
     public void start() {
         System.out.println("Starting timer!");
+        startInterval();
+        startTimer();
+    }
+
+    private void startTimer() {
         timer = new Timer();
 
         TimerTask decrementTask = new TimerDecrementTask(this.centralizedTimer);
-        startInterval();
-        timer.scheduleAtFixedRate(decrementTask, 0, 1000);
+        timer.scheduleAtFixedRate(decrementTask, 1000, 1000);
+    }
+
+    public void pause() {
+        cancelTimer();
+    }
+
+    public void resume() {
+        cancelTimer(); // to cancel any running timer
+        startTimer();
     }
 
     private void startInterval() {
@@ -46,6 +62,11 @@ public class TimerController implements Observer {
     }
 
     private void end() {
+        cancelTimer();
+        ui.end();
+    }
+
+    private void cancelTimer() {
         timer.cancel();
     }
 
@@ -63,23 +84,4 @@ public class TimerController implements Observer {
         this.workoutSession = workoutSession;
     }
 
-    public TimerController timer(Timer timer) {
-        this.timer = timer;
-        return this;
-    }
-
-    public TimerController ui(TimerUI ui) {
-        this.ui = ui;
-        return this;
-    }
-
-    public TimerController intervals(WorkoutSession intervals) {
-        this.workoutSession = intervals;
-        return this;
-    }
-
-    public TimerController centralizedTimer(AtomicTimerCount centralizedTimer) {
-        this.centralizedTimer = centralizedTimer;
-        return this;
-    }
 }

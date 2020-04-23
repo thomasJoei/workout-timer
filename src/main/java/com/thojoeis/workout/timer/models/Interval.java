@@ -1,4 +1,4 @@
-package com.thojoeis.workout.timer;
+package com.thojoeis.workout.timer.models;
 
 public class Interval {
     private final IntervalType type;

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<script type="text/javascript" charset="utf-8">
+(function() {
+     token = window.location.hash.substr(1).split('&')[0].split("=")[1];
+
+    if (token) {
+      window.opener.document.getElementById('spotify-token').value = token;
+      window.close()
+    }
+})();
+</script>
+</body>
+</html>

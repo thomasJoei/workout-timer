@@ -1,4 +1,4 @@
-package com.thojoeis.workout.timer;
+package com.thojoeis.workout.timer.models;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +15,7 @@ public class Round {
         initCounters();
     }
 
-    public  Optional<Interval> getCurrentInterval() {
+    public Optional<Interval> getCurrentInterval() {
         if (!hasStarted() || isCompleted()) {
             return Optional.empty();
         }
@@ -59,7 +59,7 @@ public class Round {
     }
 
     public boolean hasNext() {
-        return intervalIndex < intervals.size() - 1 ;
+        return intervalIndex < intervals.size() - 1;
     }
 
     public boolean hasStarted() {

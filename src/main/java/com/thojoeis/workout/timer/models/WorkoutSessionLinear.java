@@ -1,4 +1,4 @@
-package com.thojoeis.workout.timer;
+package com.thojoeis.workout.timer.models;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,7 +44,7 @@ public class WorkoutSessionLinear implements WorkoutSession {
     }
 
     public boolean hasNext() {
-        return currentIntervalIndex < intervals.size() - 1 ;
+        return currentIntervalIndex < intervals.size() - 1;
     }
 
 
@@ -75,7 +75,6 @@ public class WorkoutSessionLinear implements WorkoutSession {
                 .filter(Interval::isExercise)
                 .count();
     }
-
 
 
 }

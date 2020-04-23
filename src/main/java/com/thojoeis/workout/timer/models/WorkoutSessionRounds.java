@@ -1,9 +1,9 @@
-package com.thojoeis.workout.timer;
+package com.thojoeis.workout.timer.models;
 
 import java.util.List;
 import java.util.Optional;
 
-public class WorkoutSessionRounds implements WorkoutSession{
+public class WorkoutSessionRounds implements WorkoutSession {
 
     private int roundIndex = 0;
     private List<Round> rounds;
@@ -28,10 +28,6 @@ public class WorkoutSessionRounds implements WorkoutSession{
                 .currentExercise(rounds.get(roundIndex).getTotalExercises() - rounds.get(roundIndex).getTotalRemainingExercises())
         );
     }
-
-//    public  Optional<Interval> getCurrentInterval() {
-//        return rounds.get(roundIndex).getCurrentInterval();
-//    }
 
     public Optional<IntervalInfo> nextInterval() {
         if (isCompleted()) {
@@ -58,17 +54,17 @@ public class WorkoutSessionRounds implements WorkoutSession{
     }
 
     public int getTotalRemainingRounds() {
-        return  rounds.size() - (roundIndex + 1);
+        return rounds.size() - (roundIndex + 1);
     }
 
     private IntervalInfo getRoundRestInterval() {
         return new IntervalInfo()
-        .interval(new Interval(IntervalType.REST, "Round Rest", roundRestTime))
+                .interval(new Interval(IntervalType.REST, "Round Rest", roundRestTime))
                 .totalRounds(rounds.size())
                 .currentRound(roundIndex + 1)
                 .exercisesPerRound(rounds.get(roundIndex).getTotalExercises())
                 .currentExercise(rounds.get(roundIndex).getTotalExercises() - rounds.get(roundIndex).getTotalRemainingExercises())
-        ;
+                ;
     }
 
     public int getTotalRounds() {
@@ -83,14 +79,4 @@ public class WorkoutSessionRounds implements WorkoutSession{
         return isLastRound() && rounds.get(roundIndex).isCompleted();
     }
 
-
-    public WorkoutSessionRounds rounds(List<Round> rounds) {
-        this.rounds = rounds;
-        return this;
-    }
-
-    public WorkoutSessionRounds roundRestTime(int roundRestTime) {
-        this.roundRestTime = roundRestTime;
-        return this;
-    }
 }

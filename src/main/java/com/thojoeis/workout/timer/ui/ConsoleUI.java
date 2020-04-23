@@ -1,13 +1,16 @@
 package com.thojoeis.workout.timer.ui;
 
-import com.thojoeis.workout.timer.IntervalInfo;
+import com.thojoeis.workout.timer.models.IntervalInfo;
 
 public class ConsoleUI implements TimerUI {
 
-    //    int timer;
-//    string exerciseName
     public ConsoleUI() {
         System.out.println("UI ready");
+    }
+
+    @Override
+    public void end() {
+        System.out.println("Workout completed !");
     }
 
     public void updateTimer(int value) {
