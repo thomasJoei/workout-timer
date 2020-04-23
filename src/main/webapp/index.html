@@ -136,7 +136,9 @@
 function loginSpotify() {
       let client_id = 'd358114babf8483b906ef92a996b0e02';
       let scopes = 'user-modify-playback-state';
-      let redirect_uri = 'http://0.0.0.0:8000/target/workout-timer-1.0-SNAPSHOT/spotify-auth-redirect.html';
+      let url = document.URL;
+      let parentPathUrl = url.substring(0,url.lastIndexOf("/"));
+      let redirect_uri = parentPathUrl + '/spotify-auth-redirect.html';
 
       let popup = window.open(`https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&redirect_uri=${redirect_uri}&scope=${scopes}&show_dialog=true`, 'Login with Spotify', 'width=800,height=600')
 }
