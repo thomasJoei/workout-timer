@@ -1,7 +1,10 @@
 package com.thojoeis.workout.timer.models;
 
+import java.util.Optional;
+
 public class IntervalInfo {
     private Interval interval;
+    private Optional<Interval> nextInterval = Optional.empty();
     private int currentRound;
     private int totalRounds;
     private int exercisesPerRound;
@@ -10,6 +13,10 @@ public class IntervalInfo {
 
     public Interval getInterval() {
         return interval;
+    }
+
+    public Optional<Interval> getNextInterval() {
+        return nextInterval;
     }
 
     public int getCurrentRound() {
@@ -50,6 +57,11 @@ public class IntervalInfo {
 
     public IntervalInfo currentExercise(int currentExercise) {
         this.currentExercise = currentExercise;
+        return this;
+    }
+
+    public IntervalInfo nextInterval(Optional<Interval> nextInterval) {
+        this.nextInterval = nextInterval;
         return this;
     }
 }

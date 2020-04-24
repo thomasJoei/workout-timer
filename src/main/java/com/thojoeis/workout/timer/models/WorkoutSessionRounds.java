@@ -20,8 +20,16 @@ public class WorkoutSessionRounds implements WorkoutSession {
         if (!interval.isPresent()) {
             return Optional.empty();
         }
+
+        Optional<Interval> nextInterval = Optional.empty();
+
+        if (rounds.get(roundIndex).hasNext()) {
+            nextInterval = rounds.get(roundIndex).getNextInterval();
+        }
+
         return Optional.of(new IntervalInfo()
                 .interval(interval.get())
+                .nextInterval(nextInterval)
                 .totalRounds(rounds.size())
                 .currentRound(roundIndex + 1)
                 .exercisesPerRound(rounds.get(roundIndex).getTotalExercises())
@@ -60,6 +68,7 @@ public class WorkoutSessionRounds implements WorkoutSession {
     private IntervalInfo getRoundRestInterval() {
         return new IntervalInfo()
                 .interval(new Interval(IntervalType.REST, "Round Rest", roundRestTime))
+                .nextInterval(rounds.get(roundIndex).getNextInterval()) // there is always a next round if there is a round rest
                 .totalRounds(rounds.size())
                 .currentRound(roundIndex + 1)
                 .exercisesPerRound(rounds.get(roundIndex).getTotalExercises())

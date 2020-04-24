@@ -96,6 +96,9 @@ public class HtmlUI implements TimerUI {
     private HTMLElement getExercise() {
         return HTMLDocument.current().getElementById("exercise");
     }
+    private HTMLElement getNextExercise() {
+        return HTMLDocument.current().getElementById("next-exercise");
+    }
 
     private HTMLElement getRoundCounter() {
         return HTMLDocument.current().getElementById("round-counter");
@@ -150,6 +153,12 @@ public class HtmlUI implements TimerUI {
         getExercise().setInnerHTML(intervalInfo.getInterval().getLabel());
         getRoundCounter().setInnerHTML(String.format("%s / %s", intervalInfo.getCurrentRound(), intervalInfo.getTotalRounds()));
         getExerciseCounter().setInnerHTML(String.format("%s / %s", intervalInfo.getCurrentExercise(), intervalInfo.getExercisesPerRound()));
+
+        if (intervalInfo.getNextInterval().isPresent() && intervalInfo.getNextInterval().get().isExercise()) {
+            getNextExercise().setInnerHTML(String.format("Next : %s",intervalInfo.getNextInterval().get().getLabel()));
+        } else {
+            getNextExercise().setInnerHTML("");
+        }
 
         manageSpotifyVolume(intervalInfo);
     }

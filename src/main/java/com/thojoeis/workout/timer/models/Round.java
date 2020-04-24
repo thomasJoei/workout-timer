@@ -22,6 +22,16 @@ public class Round {
         return Optional.of(intervals.get(intervalIndex));
     }
 
+    public Optional<Interval> getNextInterval() {
+        if (!hasNext()) {
+            return Optional.empty();
+        }
+
+        Interval newInterval = intervals.get(intervalIndex+1);
+
+        return Optional.of(newInterval);
+    }
+
     public Optional<Interval> nextInterval() {
         if (!hasNext()) {
             intervalIndex++;
