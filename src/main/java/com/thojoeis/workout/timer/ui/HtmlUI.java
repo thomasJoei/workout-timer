@@ -116,6 +116,10 @@ public class HtmlUI implements TimerUI {
         return HTMLDocument.current().getElementById("long-beep").cast();
     }
 
+    private HTMLAudioElement getDoubleBeep() {
+        return HTMLDocument.current().getElementById("double-beep").cast();
+    }
+
     private HTMLAudioElement getCrowdApplause() {
         return HTMLDocument.current().getElementById("crowd-applause").cast();
     }
@@ -144,7 +148,7 @@ public class HtmlUI implements TimerUI {
             setCircleDasharray(this.currentIntervalTimeLeft, this.currentInterval.getInterval().getDuration());
             setRemainingPathColor(this.currentIntervalTimeLeft);
         }
-        beep(time);
+        beep(this.currentInterval, time);
     }
 
     @Override
@@ -186,7 +190,12 @@ public class HtmlUI implements TimerUI {
         return Optional.of(token);
     }
 
-    private void beep(int seconds) {
+    private void beep(IntervalInfo intervalInfo, int seconds) {
+        int halfway = intervalInfo.getInterval().getDuration() / 2;
+
+        if (intervalInfo.getInterval().isExercise() && halfway == seconds) {
+            doubleBeep();
+        }
         if (seconds <= 3) {
             if (seconds <= 0) {
                 longBeep();
@@ -202,6 +211,10 @@ public class HtmlUI implements TimerUI {
 
     private void longBeep() {
         getLongBeep().play();
+    }
+
+    private void doubleBeep() {
+        getDoubleBeep().play();
     }
 
     private void submit() {

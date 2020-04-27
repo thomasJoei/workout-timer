@@ -4,7 +4,7 @@
 
   <groupId>com.thojoeis.workout.timer</groupId>
   <artifactId>workout-timer</artifactId>
-  <version>1.1</version>
+  <version>1.2</version>
   <packaging>war</packaging>
 
   <properties>
